@@ -48,7 +48,7 @@ function Home() {
     } else {
       const filledCells = itemArray.filter((el) => el !== "").length;
       if (filledCells === 9) {
-        setWinMessage("Tie");
+        setWinMessage("It's a Tie");
         setisGameOver(true);
       }
     }

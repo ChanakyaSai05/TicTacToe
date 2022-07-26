@@ -28,6 +28,7 @@
   font-size: xx-large;
   background-color: rgba(54, 54, 221, 0.758);
 }
+
 .display-block {
   display: flex;
   flex-direction: column;
