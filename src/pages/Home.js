@@ -9,43 +9,36 @@ function Home() {
   const [isGameOver, setisGameOver] = useState(false);
   const [countx, setCountx] = useState(0);
   const [counto, setCounto] = useState(0);
-  // const [countn, setCountN] = useState(0);
-
   const checkWinner = () => {
-    if (
-      (itemArray[0] === itemArray[1] &&
-        itemArray[1] === itemArray[2] &&
-        itemArray[0] !== "") ||
-      (itemArray[3] === itemArray[4] &&
-        itemArray[4] === itemArray[5] &&
-        itemArray[3] !== "") ||
-      (itemArray[6] === itemArray[7] &&
-        itemArray[7] === itemArray[8] &&
-        itemArray[6] !== "") ||
-      (itemArray[0] === itemArray[4] &&
-        itemArray[4] === itemArray[8] &&
-        itemArray[0] !== "") ||
-      (itemArray[2] === itemArray[4] &&
-        itemArray[4] === itemArray[6] &&
-        itemArray[2] !== "") ||
-      (itemArray[0] === itemArray[3] &&
-        itemArray[3] === itemArray[6] &&
-        itemArray[0] !== "") ||
-      (itemArray[1] === itemArray[4] &&
-        itemArray[4] === itemArray[7] &&
-        itemArray[1] !== "") ||
-      (itemArray[2] === itemArray[5] &&
-        itemArray[5] === itemArray[8] &&
-        itemArray[2] !== "")
-    ) {
-      setWinMessage((isCross ? "X" : "O") + " Won");
-      setisGameOver(true);
-      if (isCross) {
-        setCountx(countx + 1);
-      } else if (!isCross) {
-        setCounto(counto + 1);
+    let Lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+    ];
+    let flag = false;
+    Lines.forEach((item) => {
+      const [a, b, c] = item;
+      if (
+        itemArray[a] === itemArray[b] &&
+        itemArray[b] === itemArray[c] &&
+        itemArray[a] !== ""
+      ) {
+        flag = true;
+        setWinMessage((isCross ? "X" : "O") + " Won");
+        setisGameOver(true);
+        if (isCross) {
+          setCountx(countx + 1);
+        } else if (!isCross) {
+          setCounto(counto + 1);
+        }
       }
-    } else {
+    });
+    if (flag === false) {
       const filledCells = itemArray.filter((el) => el !== "").length;
       if (filledCells === 9) {
         setWinMessage("It's a Tie");
@@ -63,7 +56,7 @@ function Home() {
     if (itemArray[index] !== "" || isGameOver) {
       return;
     } else {
-      itemArray[index] = isCross ? "x" : "o";
+      itemArray[index] = isCross ? "X" : "O";
       setIsCross(!isCross);
       checkWinner();
     }
